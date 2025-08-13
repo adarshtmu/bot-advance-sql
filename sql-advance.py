@@ -1280,7 +1280,7 @@ if not st.session_state.quiz_started:
     <div class="stats-container">
         <div class="stat-card">
             <div class="stat-icon">🎯</div>
-            <span class="stat-number">5</span>
+            <span class="stat-number">8</span>
             <div class="stat-label">Questions</div>
         </div>
         <div class="stat-card">
