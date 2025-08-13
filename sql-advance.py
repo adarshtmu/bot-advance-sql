@@ -1518,6 +1518,7 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
             tabs = st.tabs([f"{name} Preview" for name in relevant_tables])
             for i, table_name in enumerate(relevant_tables):
                 with tabs[i]:
+                    st.markdown(f"### Table: `{table_name}`")
                     if table_name in original_tables:
                         st.dataframe(original_tables[table_name], hide_index=True, use_container_width=False)
                     else:
