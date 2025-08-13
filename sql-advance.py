@@ -1354,7 +1354,7 @@ if not st.session_state.quiz_started:
         <div style="text-align: center;">
             <div></div>
         </div>
-        <h1 class="hero-title" style="text-align: center;">AI-Powered SQL Practice Bot (Intermediate)</h1>
+        <h1 class="hero-title" style="text-align: center;">AI-Powered SQL Practice Bot (Advance)</h1>
         <p class="hero-subtitle" style="text-align: center;">
             Practice real SQL queries, get instant feedback, and become job-ready with our AI-Powered SQL Practice Bot.<br>
             Join <strong>100,000+ learners</strong> improving their SQL one query at a time.
