@@ -6,20 +6,27 @@ import duckdb
 import streamlit as st
 
 
-st.set_page_config(page_title="AI SQL Mastery - EdTech Platform")
+import streamlit as st
 
-st.info("""
-### What Topics Are Covered?
-- Advanced SELECT and Filtering
-- Aggregate Functions & Grouping
-- Subqueries
-- JOINs
-- CTEs
-- Window Functions
-- Advanced Aggregation
-- Multi-table Analysis
-""")
-
+st.markdown("""
+<div style="background: linear-gradient(90deg, #1f2937 60%, #374151 100%);
+            border-radius: 14px; 
+            box-shadow: 0 6px 32px 0 rgba(0,0,0,0.12); 
+            padding: 2rem 2rem 1rem 2rem; 
+            margin-bottom: 2rem;">
+  <h2 style="color: #60a5fa; margin-bottom: 1rem;">🚀 What Topics Are Covered?</h2>
+  <ul style="color: #f3f4f6; font-size: 1.1rem; line-height: 2;">
+    <li>🧑‍💻 <b>Advanced SELECT and Filtering</b></li>
+    <li>📊 <b>Aggregate Functions & Grouping</b></li>
+    <li>🔎 <b>Subqueries</b></li>
+    <li>🔗 <b>JOINs</b></li>
+    <li>📑 <b>CTEs</b></li>
+    <li>🪟 <b>Window Functions</b></li>
+    <li>📈 <b>Advanced Aggregation</b></li>
+    <li>🗃️ <b>Multi-table Analysis</b></li>
+  </ul>
+</div>
+""", unsafe_allow_html=True)
 # --- Custom CSS ---
 # Updated to increase font sizes globally and for specific elements
 hide_streamlit_style = """
