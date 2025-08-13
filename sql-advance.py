@@ -1505,7 +1505,7 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
             </svg>
             <div class="lock-overlay {('unlocked' if is_certificate_unlocked else 'locked')}">🔒</div>
         </div>
-        <div class="certificate-count">{correct_answers}/5</div>
+        <div class="certificate-count">{correct_answers}/{total_questions}</div>
     </div>
     """, unsafe_allow_html=True)
         
