@@ -5,6 +5,7 @@ import re
 import duckdb
 import streamlit as st
 
+
 st.set_page_config(page_title="AI SQL Mastery - EdTech Platform")
 
 
@@ -2071,7 +2072,7 @@ elif st.session_state.quiz_completed:
             </div>
             """, unsafe_allow_html=True)
         else:
-            questions_needed = 3 - correct_answers
+            questions_needed = 4 - correct_answers
             st.markdown(f"""
             <div class="retry-section">
                 <h3 style='color:#2c3e50; margin-bottom: 1rem;'>📜 Certificate Locked</h3>
