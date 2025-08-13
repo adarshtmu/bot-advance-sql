@@ -166,6 +166,7 @@ try:
 except Exception as e:
     st.error(f"🚨 Failed to configure Gemini API or access the model: {e}")
     st.stop()
+    
 
 # --- Advanced SQL Questions List (Segmented 3 Levels, All Advanced, Total 8) ---
 sql_questions = [
