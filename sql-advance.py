@@ -7,6 +7,7 @@ import streamlit as st
 
 st.set_page_config(page_title="AI SQL Mastery - EdTech Platform")
 
+
 # --- Custom CSS ---
 # Updated to increase font sizes globally and for specific elements
 hide_streamlit_style = """
