@@ -14,6 +14,7 @@ st.set_page_config(page_title="AI SQL Mastery - EdTech Platform")
 hide_streamlit_style = """
     <style>
         /* Apply zoom-out effect to the entire app */
+        
         html, body, .stApp {
             zoom: 1.0 !important; /* Adjust this value to control zoom level (e.g., 0.85 = 85% zoom) */
         }
@@ -1514,7 +1515,7 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
         
     relevant_tables = question_data["relevant_tables"]
     if relevant_tables:
-        st.markdown("**Sample Table Preview(s):**")  # <-- This will show the heading
+        # st.markdown("**Sample Table Preview(s):**")  # <-- This will show the heading
     
         if len(relevant_tables) > 1:
             tabs = st.tabs([f"{name} Preview" for name in relevant_tables])
