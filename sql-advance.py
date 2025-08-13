@@ -287,12 +287,10 @@ if "selected_questions" not in st.session_state:
         st.error("🚨 Not enough questions in one or more difficulty categories to generate the quiz.")
         st.stop()
     
-    # Select 3 easy, 1 intermediate, 1 difficult question
-    selected_easy = random.sample(easy_questions, 3)
-    selected_intermediate = random.sample(intermediate_questions, 1)
-    selected_difficult = random.sample(difficult_questions, 1)
-    
-    # Arrange in order: easy -> intermediate -> difficult
+    # New (for 8 questions):
+    selected_easy = random.sample(easy_questions, min(3, len(easy_questions)))
+    selected_intermediate = random.sample(intermediate_questions, min(3, len(intermediate_questions)))
+    selected_difficult = random.sample(difficult_questions, min(2, len(difficult_questions)))
     selected_questions = selected_easy + selected_intermediate + selected_difficult
     st.session_state.selected_questions = selected_questions
 
@@ -2214,9 +2212,10 @@ elif st.session_state.quiz_completed:
                 easy_questions = [q for q in sql_questions if q["difficulty"] == "easy"]
                 intermediate_questions = [q for q in sql_questions if q["difficulty"] == "intermediate"]
                 difficult_questions = [q for q in sql_questions if q["difficulty"] == "difficult"]
-                selected_easy = random.sample(easy_questions, 3)
-                selected_intermediate = random.sample(intermediate_questions, 1)
-                selected_difficult = random.sample(difficult_questions, 1)
+                # New (for 8 questions):
+                selected_easy = random.sample(easy_questions, min(3, len(easy_questions)))
+                selected_intermediate = random.sample(intermediate_questions, min(3, len(intermediate_questions)))
+                selected_difficult = random.sample(difficult_questions, min(2, len(difficult_questions)))
                 selected_questions = selected_easy + selected_intermediate + selected_difficult
                 st.session_state.selected_questions = selected_questions
                 st.rerun()
