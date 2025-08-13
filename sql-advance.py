@@ -171,20 +171,20 @@ sql_questions = [
     # Easy-Advanced Questions (Simple JOIN, Aggregates, Subqueries)
     # ==================================
     {
-        "question": "Write a SQL query to get all products with their price and manufacturer.",
-        "correct_answer_example": "SELECT product_name, price, manufacturer FROM products;",
+        "question": "Write a SQL query to list all products whose price is above the average price of all products.",
+        "correct_answer_example": "SELECT product_name, price FROM products WHERE price > (SELECT AVG(price) FROM products);",
         "relevant_tables": ["products"],
         "difficulty": "easy"
     },
     {
-        "question": "Write a SQL query to count the total number of sales.",
-        "correct_answer_example": "SELECT COUNT(*) FROM sales;",
-        "relevant_tables": ["sales"],
+        "question": "Write a SQL query to count how many products each manufacturer offers.",
+        "correct_answer_example": "SELECT manufacturer, COUNT(*) AS product_count FROM products GROUP BY manufacturer;",
+        "relevant_tables": ["products"],
         "difficulty": "easy"
     },
     {
-        "question": "Write a SQL query to show all products that cost more than $500.",
-        "correct_answer_example": "SELECT product_name, price FROM products WHERE price > 500;",
+        "question": "Write a SQL query to find the name and price of the cheapest product in each category.",
+        "correct_answer_example": "SELECT category, product_name, price FROM products WHERE price = (SELECT MIN(price) FROM products AS p2 WHERE p2.category = products.category);",
         "relevant_tables": ["products"],
         "difficulty": "easy"
     },
