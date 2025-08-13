@@ -812,6 +812,7 @@ if not st.session_state.quiz_started:
         font-weight: 600;
         margin-bottom: 2.5rem;
         box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4),
+        
                     0 5px 15px rgba(118, 75, 162, 0.3);
         letter-spacing: 0.5px;
         text-transform: uppercase;
