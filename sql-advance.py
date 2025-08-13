@@ -1446,9 +1446,10 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
     # Calculate number of correct answers
      # Unlock only when 3 or more questions are correct
     
-# After displaying the question
-    correct_answers = sum(1 for ans in st.session_state.user_answers if ans.get('is_correct', False))
-    is_certificate_unlocked = correct_answers >= 3
+    # After displaying the question
+    total_questions = len(st.session_state.selected_questions)
+    is_certificate_unlocked = correct_answers >= (total_questions // 2)  # Example: unlock at 50%
+
     st.markdown(f"""
     <div class="certificate-container" style="position: relative; display: inline-block; float: right;">
         <div class="certificate-icon" style="position: relative; display: inline-block;">
