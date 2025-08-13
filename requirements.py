@@ -1,0 +1,5 @@
+streamlit
+google-generativeai
+pandas
+duckdb
+mysql-connector-python
