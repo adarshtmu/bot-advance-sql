@@ -8,6 +8,25 @@ import streamlit as st
 
 st.set_page_config(page_title="AI SQL Mastery - EdTech Platform")
 
+st.title("Advanced SQL Practice Bot")
+
+# Add a summary of topics covered
+st.markdown("""
+### What Topics Are Covered?
+
+This advanced SQL bot will help you practice and master topics such as:
+
+- **Advanced SELECT and Filtering:** Work with complex WHERE conditions, filtering, and retrieval.
+- **Aggregate Functions & Grouping:** Practice COUNT, SUM, AVG, GROUP BY, HAVING, etc.
+- **Subqueries:** Use nested queries and correlated subqueries for advanced analysis.
+- **JOINs:** Combine data across multiple tables using INNER, LEFT, and advanced join techniques.
+- **Common Table Expressions (CTE):** Structure multi-step queries with WITH clauses.
+- **Window Functions:** Analyze data with running totals, ranks, differences, and more.
+- **Advanced Aggregation:** Calculate metrics across categories, manufacturers, or products.
+- **Multi-table Analysis:** Solve business questions by combining and analyzing multiple tables.
+
+Ready to test your skills? 🚀
+""")
 
 # --- Custom CSS ---
 # Updated to increase font sizes globally and for specific elements
