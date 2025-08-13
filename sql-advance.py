@@ -1514,7 +1514,8 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
         
     relevant_tables = question_data["relevant_tables"]
     if relevant_tables:
-        st.markdown("**Sample Table Preview(s):**")
+        st.markdown("**Sample Table Preview(s):**")  # <-- This will show the heading
+    
         if len(relevant_tables) > 1:
             tabs = st.tabs([f"{name} Preview" for name in relevant_tables])
             for i, table_name in enumerate(relevant_tables):
@@ -1524,8 +1525,9 @@ elif st.session_state.quiz_started and not st.session_state.quiz_completed:
                         st.dataframe(original_tables[table_name], hide_index=True, use_container_width=False)
                     else:
                         st.warning(f"Data for table '{table_name}' not found.")
-        elif len(relevant_tables) == 1:
+        else:
             table_name = relevant_tables[0]
+            st.markdown(f"### Table: `{table_name}`")
             if table_name in original_tables:
                 st.dataframe(original_tables[table_name], hide_index=True, use_container_width=False)
             else:
