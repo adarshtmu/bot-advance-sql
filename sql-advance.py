@@ -180,18 +180,18 @@ sql_questions = [
         "relevant_tables": ["products"],
         "difficulty": "easy"
     },
-    # {
-    #     "question": "Write a SQL query to count how many products each manufacturer offers.",
-    #     "correct_answer_example": "SELECT manufacturer, COUNT(*) AS product_count FROM products GROUP BY manufacturer;",
-    #     "relevant_tables": ["products"],
-    #     "difficulty": "easy"
-    # },
-    # {
-    #     "question": "Write a SQL query to find the name and price of the cheapest product in each category.",
-    #     "correct_answer_example": "SELECT category, product_name, price FROM products WHERE price = (SELECT MIN(price) FROM products AS p2 WHERE p2.category = products.category);",
-    #     "relevant_tables": ["products"],
-    #     "difficulty": "easy"
-    # },
+    {
+        "question": "Write a SQL query to count how many products each manufacturer offers.",
+        "correct_answer_example": "SELECT manufacturer, COUNT(*) AS product_count FROM products GROUP BY manufacturer;",
+        "relevant_tables": ["products"],
+        "difficulty": "easy"
+    },
+    {
+        "question": "Write a SQL query to find the name and price of the cheapest product in each category.",
+        "correct_answer_example": "SELECT category, product_name, price FROM products WHERE price = (SELECT MIN(price) FROM products AS p2 WHERE p2.category = products.category);",
+        "relevant_tables": ["products"],
+        "difficulty": "easy"
+    },
 
     # # ==================================
     # # Intermediate-Advanced Questions (JOINs, Aggregation, Filtering)
