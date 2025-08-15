@@ -2069,7 +2069,7 @@ elif st.session_state.quiz_completed:
 
 
 
-        def display_certificate_section(final_score):
+    def display_certificate_section(final_score):
             total_questions = 8
             correct_answers = int((final_score / 100) * total_questions)
             is_certificate_unlocked = correct_answers >= 3
