@@ -180,56 +180,56 @@ sql_questions = [
         "relevant_tables": ["products"],
         "difficulty": "easy"
     },
-    {
-        "question": "Write a SQL query to count how many products each manufacturer offers.",
-        "correct_answer_example": "SELECT manufacturer, COUNT(*) AS product_count FROM products GROUP BY manufacturer;",
-        "relevant_tables": ["products"],
-        "difficulty": "easy"
-    },
-    {
-        "question": "Write a SQL query to find the name and price of the cheapest product in each category.",
-        "correct_answer_example": "SELECT category, product_name, price FROM products WHERE price = (SELECT MIN(price) FROM products AS p2 WHERE p2.category = products.category);",
-        "relevant_tables": ["products"],
-        "difficulty": "easy"
-    },
+    # {
+    #     "question": "Write a SQL query to count how many products each manufacturer offers.",
+    #     "correct_answer_example": "SELECT manufacturer, COUNT(*) AS product_count FROM products GROUP BY manufacturer;",
+    #     "relevant_tables": ["products"],
+    #     "difficulty": "easy"
+    # },
+    # {
+    #     "question": "Write a SQL query to find the name and price of the cheapest product in each category.",
+    #     "correct_answer_example": "SELECT category, product_name, price FROM products WHERE price = (SELECT MIN(price) FROM products AS p2 WHERE p2.category = products.category);",
+    #     "relevant_tables": ["products"],
+    #     "difficulty": "easy"
+    # },
 
-    # ==================================
-    # Intermediate-Advanced Questions (JOINs, Aggregation, Filtering)
-    # ==================================
-    {
-        "question": "Write a SQL query to calculate the total quantity sold for each product.",
-        "correct_answer_example": "SELECT p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_name;",
-        "relevant_tables": ["products", "sales"],
-        "difficulty": "intermediate"
-    },
-    {
-        "question": "Write a SQL query to find products that have never been sold.",
-        "correct_answer_example": "SELECT p.product_name FROM products p LEFT JOIN sales s ON p.product_id = s.product_id WHERE s.sale_id IS NULL;",
-        "relevant_tables": ["products", "sales"],
-        "difficulty": "intermediate"
-    },
-    {
-        "question": "Write a SQL query to list the top 2 products by total sales quantity.",
-        "correct_answer_example": "SELECT p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_name ORDER BY total_sold DESC LIMIT 2;",
-        "relevant_tables": ["products", "sales"],
-        "difficulty": "intermediate"
-    },
+    # # ==================================
+    # # Intermediate-Advanced Questions (JOINs, Aggregation, Filtering)
+    # # ==================================
+    # {
+    #     "question": "Write a SQL query to calculate the total quantity sold for each product.",
+    #     "correct_answer_example": "SELECT p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_name;",
+    #     "relevant_tables": ["products", "sales"],
+    #     "difficulty": "intermediate"
+    # },
+    # {
+    #     "question": "Write a SQL query to find products that have never been sold.",
+    #     "correct_answer_example": "SELECT p.product_name FROM products p LEFT JOIN sales s ON p.product_id = s.product_id WHERE s.sale_id IS NULL;",
+    #     "relevant_tables": ["products", "sales"],
+    #     "difficulty": "intermediate"
+    # },
+    # {
+    #     "question": "Write a SQL query to list the top 2 products by total sales quantity.",
+    #     "correct_answer_example": "SELECT p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_name ORDER BY total_sold DESC LIMIT 2;",
+    #     "relevant_tables": ["products", "sales"],
+    #     "difficulty": "intermediate"
+    # },
 
-    # ==================================
-    # Difficult-Advanced Questions (CTE, Window Functions, Advanced Subqueries)
-    # ==================================
-    {
-        "question": "Using a CTE, list all products with total sales quantity greater than 5.",
-        "correct_answer_example": "WITH prod_sales AS (SELECT p.product_id, p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_id, p.product_name) SELECT product_name, total_sold FROM prod_sales WHERE total_sold > 5;",
-        "relevant_tables": ["products", "sales"],
-        "difficulty": "difficult"
-    },
-    {
-        "question": "Write a SQL query to show each sale along with the running total of quantity sold for its product using a window function.",
-        "correct_answer_example": "SELECT s.sale_id, p.product_name, s.quantity, SUM(s.quantity) OVER (PARTITION BY s.product_id ORDER BY s.sale_date) AS running_total FROM sales s JOIN products p ON s.product_id = p.product_id ORDER BY p.product_name, s.sale_date;",
-        "relevant_tables": ["products", "sales"],
-        "difficulty": "difficult"
-    }
+    # # ==================================
+    # # Difficult-Advanced Questions (CTE, Window Functions, Advanced Subqueries)
+    # # ==================================
+    # {
+    #     "question": "Using a CTE, list all products with total sales quantity greater than 5.",
+    #     "correct_answer_example": "WITH prod_sales AS (SELECT p.product_id, p.product_name, SUM(s.quantity) AS total_sold FROM products p JOIN sales s ON p.product_id = s.product_id GROUP BY p.product_id, p.product_name) SELECT product_name, total_sold FROM prod_sales WHERE total_sold > 5;",
+    #     "relevant_tables": ["products", "sales"],
+    #     "difficulty": "difficult"
+    # },
+    # {
+    #     "question": "Write a SQL query to show each sale along with the running total of quantity sold for its product using a window function.",
+    #     "correct_answer_example": "SELECT s.sale_id, p.product_name, s.quantity, SUM(s.quantity) OVER (PARTITION BY s.product_id ORDER BY s.sale_date) AS running_total FROM sales s JOIN products p ON s.product_id = p.product_id ORDER BY p.product_name, s.sale_date;",
+    #     "relevant_tables": ["products", "sales"],
+    #     "difficulty": "difficult"
+    # }
 ]
 
 # --- Sample Data ---
