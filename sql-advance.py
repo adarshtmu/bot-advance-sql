@@ -2066,24 +2066,10 @@ elif st.session_state.quiz_completed:
         wrong = len(user_answers) - correct
         return correct, wrong
     correct_count, wrong_count = get_correct_wrong_counts(st.session_state.user_answers)
-    
-    def display_advanced_scorecard(final_score, correct_count, wrong_count):
-        progress_width = min(final_score, 100)
-        st.markdown(f"""
-        <div class="score-card">
-            <div class="score-content">
-                <div class="score-title">📊 Your Final Score</div>
-                <div class="score-value">{final_score:.1f}%</div>
-                <div class="score-label">Performance Rating</div>
-                <div style='font-size:1.35rem; margin: 14px 0 0 0;'><b>Questions Correct:</b> {correct_count} &nbsp; | &nbsp; <b>Wrong:</b> {wrong_count}</div>
-                <div class="score-progress">
-                    <div class="score-progress-fill" style="--progress-width: {progress_width}%; width: {progress_width}%;"></div>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    def display_certificate_section(final_score):
+
+
+
+        def display_certificate_section(final_score):
         total_questions = 8
         correct_answers = int((final_score / 100) * total_questions)
         is_certificate_unlocked = correct_answers >= 3
@@ -2124,6 +2110,65 @@ elif st.session_state.quiz_completed:
                 </a>
             </div>
             """, unsafe_allow_html=True)
+
+
+    def display_advanced_scorecard(final_score, correct_count, wrong_count):
+        progress_width = min(final_score, 100)
+        st.markdown(f"""
+        <div class="score-card">
+            <div class="score-content">
+                <div class="score-title">📊 Your Final Score</div>
+                <div class="score-value">{final_score:.1f}%</div>
+                <div class="score-label">Performance Rating</div>
+                <div style='font-size:1.35rem; margin: 14px 0 0 0;'><b>Questions Correct:</b> {correct_count} &nbsp; | &nbsp; <b>Wrong:</b> {wrong_count}</div>
+                <div class="score-progress">
+                    <div class="score-progress-fill" style="--progress-width: {progress_width}%; width: {progress_width}%;"></div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # def display_certificate_section(final_score):
+    #     total_questions = 8
+    #     correct_answers = int((final_score / 100) * total_questions)
+    #     is_certificate_unlocked = correct_answers >= 3
+    
+    #     # st.markdown(f"""
+    #     # <div style="text-align: center; margin-bottom: 2rem;">
+    #     #     <div class="certificate-container" style="position: relative; display: inline-block; margin: 0 auto;">
+    #     #         <div class="certificate-icon" style="transform: scale(1.5);">
+    #     #             <div class="lock-overlay {('unlocked' if is_certificate_unlocked else 'locked')}">🔒</div>
+    #     #         </div>
+    #     #         <div class="certificate-count">{correct_answers}/5</div>
+    #     #     </div>
+    #     # </div>
+    #     # """, unsafe_allow_html=True)
+    
+    #     if is_certificate_unlocked:
+    #         st.markdown("""
+    #         <div class="certificate-section">
+    #             <h2 style='color:#2c3e50; margin-bottom: 1rem;'>🎉 Certificate Unlocked!</h2>
+    #             <p style='color:#5d6d7e; font-size: 1.1rem; margin-bottom: 2rem;'>
+    #                 Congratulations! You've correctly answered 3 or more questions and earned your certificate.
+    #             </p>
+    #             <a href="https://superprofile.bio/vp/corporate-bhaiya-sql-page" target="_blank" class="certificate-btn">
+    #                 📜 Claim Your Certificate
+    #             </a>
+    #         </div>
+    #         """, unsafe_allow_html=True)
+    #     else:
+    #         questions_needed = 4 - correct_answers
+    #         st.markdown(f"""
+    #         <div class="retry-section">
+    #             <h3 style='color:#2c3e50; margin-bottom: 1rem;'>📜 Certificate Locked</h3>
+    #             <p style='color:#5d6d7e; font-size: 1rem; margin-bottom: 1.5rem;'>
+    #                 You need {questions_needed} more correct {'question' if questions_needed == 1 else 'questions'} to unlock your certificate. Keep going!
+    #             </p>
+    #             <a href="https://www.corporatebhaiya.com/" target="_blank" class="mentor-btn">
+    #                 🚀 Book a SQL Mentor To Guide You
+    #             </a>
+    #         </div>
+    #         """, unsafe_allow_html=True)
     # def display_question_summary(user_answers):
     #     """Display question summary with advanced styling"""
     #     st.markdown("""
