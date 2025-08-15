@@ -2275,12 +2275,13 @@ elif st.session_state.quiz_completed:
         
         # Inject custom CSS
         inject_custom_css()
+        # Certificate section
+        display_certificate_section(final_score)
         
         # Advanced scorecard
         display_advanced_scorecard(final_score, correct_count, wrong_count)
         
-        # Certificate section
-        display_certificate_section(final_score)
+
         
         # Separator
         st.markdown("---")
