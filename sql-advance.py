@@ -1253,7 +1253,7 @@ if not st.session_state.quiz_started:
         <h1 class="hero-title" style="text-align: center;">AI-Powered SQL Practice Bot (Advance)</h1>
         <p class="hero-subtitle" style="text-align: center;">
             Practice real SQL queries, get instant feedback, and become job-ready with our AI-Powered SQL Practice Bot.<br>
-            Join <strong>100,000+ learners</strong> improving their SQL one query at a time.
+            Join <strong>2000+ learners</strong> improving their SQL one query at a time.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -1315,7 +1315,7 @@ if not st.session_state.quiz_started:
         </div>
         <div class="stat-card">
             <div class="stat-icon">⏱️</div>
-            <span class="stat-number">5-10</span>
+            <span class="stat-number">15-25</span>
             <div class="stat-label">Minutes</div>
         </div>
         <div class="stat-card">
@@ -1325,7 +1325,7 @@ if not st.session_state.quiz_started:
         </div>
         <div class="stat-card">
             <div class="stat-icon">🎓</div>
-            <span class="stat-number">Pro</span>
+            <span class="stat-number">SQL Advance Certification</span>
             <div class="stat-label">Certification</div>
         </div>
     </div>
