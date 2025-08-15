@@ -1259,6 +1259,18 @@ if not st.session_state.quiz_started:
     """, unsafe_allow_html=True)
 
 
+        # Center the button using columns
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🚀 Practice SQL Now", key="start_quiz", use_container_width=True):
+            st.session_state.quiz_started = True
+            st.session_state.user_answers = []
+            st.session_state.current_question = 0
+            st.session_state.quiz_completed = False
+            st.success("🎉 Welcome to the future of learning!")
+            st.balloons()
+            st.rerun()
+
     st.markdown('<div style="text-align: center; margin: 3rem 0;">', unsafe_allow_html=True)
 
     st.markdown("""
@@ -1289,17 +1301,7 @@ if not st.session_state.quiz_started:
     # You must have your image accessible, either locally or hosted.
     # For this example, let's assume you have uploaded your image to the Streamlit project directory as "arrow_circle.png".
     
-    # Center the button using columns
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🚀 Practice SQL Now", key="start_quiz", use_container_width=True):
-            st.session_state.quiz_started = True
-            st.session_state.user_answers = []
-            st.session_state.current_question = 0
-            st.session_state.quiz_completed = False
-            st.success("🎉 Welcome to the future of learning!")
-            st.balloons()
-            st.rerun()
+
 
 
     # --- ADVANCED STATS SECTION (REFACTORED) ---
