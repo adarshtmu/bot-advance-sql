@@ -1749,7 +1749,7 @@ elif st.session_state.quiz_completed:
             overflow: hidden;
             animation: scoreCardFloat 6s ease-in-out infinite;
             width: 590px;                /* Set your preferred width */
-            height: 250px;               /* Set your preferred height */
+            height: 350px;               /* Set your preferred height */
             max-width: 95vw;             /* Responsive: not larger than viewport */
             max-height: 60vh;            /* Responsive: not taller than viewport */
             min-width: 220px;            /* Optional, for small screens */
