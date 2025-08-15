@@ -1748,8 +1748,8 @@ elif st.session_state.quiz_completed:
             position: relative;
             overflow: hidden;
             animation: scoreCardFloat 6s ease-in-out infinite;
-            width: 690px;                /* Set your preferred width */
-            height: 350px;               /* Set your preferred height */
+            width: 590px;                /* Set your preferred width */
+            height: 250px;               /* Set your preferred height */
             max-width: 95vw;             /* Responsive: not larger than viewport */
             max-height: 60vh;            /* Responsive: not taller than viewport */
             min-width: 220px;            /* Optional, for small screens */
