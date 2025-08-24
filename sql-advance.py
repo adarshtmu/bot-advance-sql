@@ -532,6 +532,7 @@ def evaluate_answer_with_llm(question_data, student_answer, original_tables_dict
             st.error(f"🚨 AI Error during evaluation: {error_msg}")
             feedback_llm = f"AI feedback generation error: {error_msg}"
         is_correct_llm = False
+        
         llm_output = f"Error during AI call: {error_msg}"
     else:
         # Process successful response
