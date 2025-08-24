@@ -155,20 +155,92 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# --- Set up Gemini API ---
-gemini_api_key = "AIzaSyAfzl_66GZsgaYjAM7cT2djVCBCAr86t2k"  # Replace with your Gemini API Key
+# --- Set up Gemini API with Multiple Keys and Fallback ---
+gemini_api_keys = [
+    "AIzaSyAfzl_66GZsgaYjAM7cT2djVCBCAr86t2k",  # Primary key
+    "AIzaSyD3g71Fj_XymP121NMcxSEI8imLKpMd594",  # Fallback key 1
+    "AIzaSyCzmDa2KaDwzyRVSgYcGB8gBMcofgQFUFw"   # Fallback key 2
+]
 
-if not gemini_api_key or gemini_api_key == "YOUR_API_KEY_HERE":
-    st.error("🚨 Gemini API Key is missing or hasn't been replaced. Please add your key in the code.")
-    st.stop()
+# Initialize session state for current API key index
+if "current_api_key_index" not in st.session_state:
+    st.session_state.current_api_key_index = 0
 
-try:
-    genai.configure(api_key=gemini_api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
-except Exception as e:
-    st.error(f"🚨 Failed to configure Gemini API or access the model: {e}")
-    st.stop()
+def initialize_gemini_model():
+    """Initialize Gemini model with current API key"""
+    current_key = gemini_api_keys[st.session_state.current_api_key_index]
+    try:
+        genai.configure(api_key=current_key)
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        return model
+    except Exception as e:
+        st.error(f"🚨 Failed to configure Gemini API: {e}")
+        return None
+
+def try_next_api_key():
+    """Switch to next available API key"""
+    if st.session_state.current_api_key_index < len(gemini_api_keys) - 1:
+        st.session_state.current_api_key_index += 1
+        return initialize_gemini_model()
+    return None
+
+def make_ai_request_with_fallback(prompt):
+    """Make AI request with automatic fallback to next API key if quota exceeded"""
+    model = initialize_gemini_model()
     
+    if not model:
+        return None, "Error: Could not initialize AI model"
+    
+    max_attempts = len(gemini_api_keys)
+    
+    for attempt in range(max_attempts):
+        try:
+            response = model.generate_content(prompt)
+            
+            # Check if response is valid
+            extracted_text = None
+            if hasattr(response, 'text'):
+                extracted_text = response.text
+            elif hasattr(response, 'parts') and response.parts:
+                extracted_text = "".join(part.text for part in response.parts if hasattr(part, 'text'))
+            else:
+                try:
+                    extracted_text = f"AI Response Blocked or Empty. Prompt Feedback: {response.prompt_feedback}"
+                except Exception:
+                    extracted_text = "Error: Received unexpected or empty response structure from AI."
+
+            if extracted_text and extracted_text.strip():
+                return extracted_text.strip(), None
+            else:
+                return None, "Error: Received empty response from AI."
+                
+        except Exception as e:
+            error_message = str(e).lower()
+            
+            # Check if it's a quota exceeded error
+            if "quota" in error_message or "exceed" in error_message or "limit" in error_message:
+                print(f"API Key {st.session_state.current_api_key_index + 1} quota exceeded. Trying next key...")
+                
+                # Try next API key
+                next_model = try_next_api_key()
+                if next_model:
+                    model = next_model
+                    continue  # Retry with new key
+                else:
+                    # All keys exhausted
+                    return None, "❌ All AI Mentor API keys have exceeded their daily quota. Please try again later or contact support for assistance."
+            else:
+                # Other error, don't retry
+                return None, f"AI request error: {e}"
+    
+    # If we reach here, all attempts failed
+    return None, "❌ All AI Mentor API keys have exceeded their daily quota. Please try again later or contact support for assistance."
+
+# Initialize the model on startup
+model = initialize_gemini_model()
+if not model:
+    st.error("🚨 Failed to initialize AI model. Please check API keys.")
+    st.stop()
 
 # --- Advanced SQL Questions List (Segmented 3 Levels, All Advanced, Total 8) ---
 sql_questions = [
@@ -256,14 +328,6 @@ original_tables = {
     "products": products_table,
     "sales": sales_table
 }
-
-# --- In your quiz logic ---
-# To select random questions from each segment for each quiz (example: 2 easy, 3 intermediate, 3 difficult):
-# easy_qs = [q for q in sql_questions if q["difficulty"] == "easy"]
-# inter_qs = [q for q in sql_questions if q["difficulty"] == "intermediate"]
-# diff_qs = [q for q in sql_questions if q["difficulty"] == "difficult"]
-# selected_questions = random.sample(easy_qs, 2) + random.sample(inter_qs, 3) + random.sample(diff_qs, 3)
-# Or, just use all 8 in order for a full practice challenge.
 
 # --- The rest of your Streamlit app logic remains unchanged ---
 
@@ -455,54 +519,33 @@ def evaluate_answer_with_llm(question_data, student_answer, original_tables_dict
     """
 
     feedback_llm = "AI feedback generation failed."; is_correct_llm = False; llm_output = "Error: No LLM response received."
-    try:
-        response = model.generate_content(prompt)
-        extracted_text = None
-        try:
-            if hasattr(response, 'text'):
-                extracted_text = response.text
-            elif hasattr(response, 'parts') and response.parts:
-                extracted_text = "".join(part.text for part in response.parts if hasattr(part, 'text'))
-            else:
-                try:
-                    extracted_text = f"AI Response Blocked or Empty. Prompt Feedback: {response.prompt_feedback}"
-                except Exception:
-                    extracted_text = "Error: Received unexpected or empty response structure from AI."
-
-            if not extracted_text or not extracted_text.strip():
-                llm_output = "Error: Received empty response from AI."
-            else:
-                llm_output = extracted_text.strip()
-                verdict_match = re.search(r'^Verdict:\s*(Correct|Incorrect)\s*$', llm_output, re.MULTILINE | re.IGNORECASE)
-                if verdict_match:
-                    is_correct_llm = (verdict_match.group(1).lower() == "correct")
-                    feedback_llm = llm_output[:verdict_match.start()].strip()
-                    feedback_llm = re.sub(r'\s*Verdict:\s*(Correct|Incorrect)?\s*$', '', feedback_llm, flags=re.MULTILINE | re.IGNORECASE).strip()
-                else:
-                    st.warning(f"⚠️ Could not parse AI verdict from response.")
-                    print(f"WARNING: Could not parse verdict from LLM output:\n---\n{llm_output}\n---")
-                    feedback_llm = llm_output + "\n\n_(System Note: AI correctness check might be unreliable as verdict wasn't found.)_"
-                    is_correct_llm = False
-        except AttributeError as ae:
-            llm_output = f"Error: Unexpected response format from AI. Details: {ae}"
-            print(f"ERROR: Unexpected response format from AI: {response}")
-            feedback_llm = f"AI feedback format error: {ae}"
-            is_correct_llm = False
-        except Exception as e_resp:
-            llm_output = f"Error processing AI response: {e_resp}"
-            print(f"ERROR: Processing AI response failed: {e_resp}")
-            feedback_llm = f"AI response processing error: {e_resp}"
-            is_correct_llm = False
-    except Exception as e_call:
-        error_message = str(e_call).lower()
-        if "quota" in error_message or "exceed" in error_message:
+    
+    # Use the new fallback AI request function
+    llm_response, error_msg = make_ai_request_with_fallback(prompt)
+    
+    if error_msg:
+        # Handle error cases
+        if "quota" in error_msg.lower():
             st.error("Please try again tomorrow or contact the admin to increase the quota")
-            feedback_llm = "❌ The AI Mentor is currently unavailable due to exceeding the daily API quota. Please try again later or contact support for assistance."
+            feedback_llm = error_msg
         else:
-            st.error(f"🚨 AI Error during evaluation: {e_call}")
-            feedback_llm = f"AI feedback generation error: {e_call}"
+            st.error(f"🚨 AI Error during evaluation: {error_msg}")
+            feedback_llm = f"AI feedback generation error: {error_msg}"
         is_correct_llm = False
-        llm_output = f"Error during AI call: {e_call}"
+        llm_output = f"Error during AI call: {error_msg}"
+    else:
+        # Process successful response
+        llm_output = llm_response
+        verdict_match = re.search(r'^Verdict:\s*(Correct|Incorrect)\s*$', llm_output, re.MULTILINE | re.IGNORECASE)
+        if verdict_match:
+            is_correct_llm = (verdict_match.group(1).lower() == "correct")
+            feedback_llm = llm_output[:verdict_match.start()].strip()
+            feedback_llm = re.sub(r'\s*Verdict:\s*(Correct|Incorrect)?\s*$', '', feedback_llm, flags=re.MULTILINE | re.IGNORECASE).strip()
+        else:
+            st.warning(f"⚠️ Could not parse AI verdict from response.")
+            print(f"WARNING: Could not parse verdict from LLM output:\n---\n{llm_output}\n---")
+            feedback_llm = llm_output + "\n\n_(System Note: AI correctness check might be unreliable as verdict wasn't found.)_"
+            is_correct_llm = False
 
     actual_result_sim = simulate_query_duckdb(student_answer, original_tables_dict)
     expected_result_sim = simulate_query_duckdb(correct_answer_example, original_tables_dict)
@@ -515,6 +558,8 @@ def calculate_score(user_answers):
     correct_count = sum(1 for ans in user_answers if ans.get("is_correct", False))
     total_attempted = len(user_answers)
     return (correct_count / total_attempted) * 100
+
+
 
 def analyze_performance(user_answers):
     performance_data = {
