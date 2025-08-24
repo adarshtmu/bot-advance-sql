@@ -921,7 +921,7 @@ if not st.session_state.quiz_started:
     }
     
     .stat-number {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         font-weight: 800;
         color: #ffffff;
         display: block;
