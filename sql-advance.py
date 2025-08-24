@@ -1326,7 +1326,7 @@ if not st.session_state.quiz_started:
         <div class="stat-card">
             <div class="stat-icon">🎓</div>
             <span class="stat-number">Advance Certification</span>
-            <div class="stat-label">Certification</div>
+            # <div class="stat-label">Certificatio</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
