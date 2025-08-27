@@ -1372,7 +1372,8 @@ if not st.session_state.quiz_started:
         </div>
         <div class="stat-card">
             <div class="stat-icon">🎓</div>
-            <div class="stat-label">Advance Certification</div>
+            <div class="stat-label">Advance</div>
+            <div class="stat-label">Certification</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1410,7 +1411,7 @@ if not st.session_state.quiz_started:
     <div class="features-grid">
         <div class="feature-card">
             <div class="feature-icon">🤖</div>
-            <div class="feature-title">START YOUR SQL PRACTICE NOW</div>
+            <div class="feature-title">PERSONALIZED FEEDBACK</div>
             <div class="feature-description">
                 Get instant, personalized feedback on your SQL queries. Our AI mentor helps you learn from mistakes and master new concepts with every attempt.
             </div>
