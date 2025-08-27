@@ -2157,7 +2157,7 @@ elif st.session_state.quiz_completed:
                 <p style='color:#5d6d7e; font-size: 1.1rem; margin-bottom: 2rem;'>
                     Congratulations! You've correctly answered 3 or more questions and earned your certificate.
                 </p>
-                <a href="https://superprofile.bio/vp/corporate-bhaiya-sql-page" target="_blank" class="certificate-btn">
+                <a href="https://superprofile.bio/vp/sR52a_Co" target="_blank" class="certificate-btn">
                     📜 Claim Your Certificate
                 </a>
             </div>
