@@ -219,7 +219,7 @@ def make_ai_request_with_fallback(prompt):
             
             # Check if it's a quota exceeded error
             if "quota" in error_message or "exceed" in error_message or "limit" in error_message:
-                print(f"API Key {st.session_state.current_api_key_index + 1} quota exceeded. Trying next key...")
+                # print(f"API Key {st.session_state.current_api_key_index + 1} quota exceeded. Trying next key...")
                 
                 # Try next API key
                 next_model = try_next_api_key()
