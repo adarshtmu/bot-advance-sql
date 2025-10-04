@@ -204,7 +204,7 @@ def initialize_gemini_model():
     current_key = gemini_api_keys[st.session_state.current_api_key_index]
     try:
         genai.configure(api_key=current_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
         return model
     except Exception as e:
         st.error(f"🚨 Failed to configure Gemini API: {e}")
