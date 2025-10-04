@@ -9,6 +9,39 @@ import streamlit as st
 import streamlit as st
 
 
+# --- ENFORCE STATIC DARK THEME COLORS FOR COMPONENTS (THE FIX) ---
+static_theme_fix = """
+<style>
+/* 1. FORCE DARK MODE VARIABLES TO PREVENT THEME FLIPPING */
+:root {
+    /* Main Background: Match your desired dark gradient base */
+    --st-bg: #0f0f23; 
+    --st-secondary-background: #1a1a2e; /* Sidebar, secondary panels */
+    --st-tertiary-background: #16213e; /* Code blocks, input areas */
+    
+    /* Text/Foreground Colors */
+    --st-text: #ffffff;
+    --st-secondary-text: #a0a0a0;
+    
+    /* Chat Message Backgrounds (The key fix for bot color change) */
+    /* Bot background: A dark color like a standard dark Streamlit theme bot color */
+    --st-chat-background-color: #262730; 
+    /* User background: A slightly different dark color for user message bubble */
+    --st-chat-user-background-color: #0f3460;
+}
+
+/* 2. ENFORCE BACKGROUND TO PREVENT COLOR FLIP ON THEME CHANGE */
+/* This targets the main element that changes color with Streamlit's theme */
+.stApp {
+    /* Override the background to ensure your gradient is the only thing visible */
+    background: none !important; 
+}
+
+/* You might need to add !important to your body/html/stApp rule in hide_streamlit_style 
+   to ensure your custom background gradient takes priority over Streamlit's root variables */
+</style>
+"""
+st.markdown(static_theme_fix, unsafe_allow_html=True)
 
 # --- Custom CSS ---
 # Updated to increase font sizes globally and for specific elements
